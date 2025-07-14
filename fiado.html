@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SmartPoint PDV - Gestão de Fiado</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="fiado.css">
+
+    <link rel="manifest" href="/manifest.json">
+    
+    <meta name="theme-color" content="#00B4D8">
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <button class="back-btn" onclick="window.history.back()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+                Voltar
+            </button>
+            <h1 class="header-title-no-menu">Gestão de Fiado</h1>
+        </div>
+        <button class="notification-btn">
+             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                <path d="m13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+            <span class="notification-badge">3</span>
+        </button>
+    </header>
+
+    <main class="main-content-full-width" id="mainContent">
+        <div class="customer-management-panel">
+            <div class="customer-list-card">
+                <div class="card-header">
+                    <h2 class="card-title">Clientes com Fiado</h2>
+                </div>
+                <div class="card-search">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Pesquisar cliente por nome...">
+                    <button class="btn btn-accent" id="btnAtualizar">↻ Atualizar</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="customer-table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customerTableBody">
+                            <tr><td colspan="2" style="text-align:center; padding: 20px;">Carregando clientes...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer-info">
+                    <p>Toque em um cliente para ver os detalhes das dívidas.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="debtsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="debtsModalTitle">Dívidas do Cliente</h2>
+                <span class="close-button" id="closeDebtsModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                 <div class="debt-summary">
+                    <span id="debtCustomerName">Cliente: Nome do Cliente</span>
+                    <span id="debtTotal" class="total-pending">Total Pendente: R$ 0,00</span>
+                </div>
+                <div class="table-responsive">
+                     <table class="debts-table">
+                        <thead>
+                            <tr>
+                                <th>Venda Nº</th>
+                                <th>Data</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="debtsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" id="btnPagarDividas">Registrar Pagamento</button>
+                <button class="btn btn-primary" id="btnExportarPDF">Exportar PDF</button>
+                <button class="btn btn-gray" id="btnCloseDebtsModalBottom">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    
+    <script src="api_client.js"></script> <script src="fiado.js"></script>
+    
+</body>
+</html>

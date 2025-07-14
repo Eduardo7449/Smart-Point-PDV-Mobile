@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SmartPoint PDV - Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+
+     <link rel="manifest" href="/manifest.json">
+    
+    <meta name="theme-color" content="#00B4D8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="SmartPoint PDV">
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <button class="menu-btn" onclick="toggleSidebar()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 12h18m-9 9l9-9-9-9"/>
+                </svg>
+                ☰
+            </button>
+            <h1 class="header-title">Smart Point PDV</h1>
+        </div>
+        <button class="notification-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                <path d="m13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+            <span class="notification-badge">3</span>
+        </button>
+    </header>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="" alt="Logo da Loja" id="storeLogoElement" style="display: none;">
+            <div class="sidebar-subtitle" id="storeNameElement">Carregando...</div>
+        </div>
+
+        <div class="sidebar-nav">
+            <a href="pdv.html" class="nav-item active">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="3" y="3" width="7" height="7"/>
+                    <rect x="14" y="3" width="7" height="7"/>
+                    <rect x="14" y="14" width="7" height="7"/>
+                    <rect x="3" y="14" width="7" height="7"/>
+                </svg>
+                PDV
+            </a>
+
+            <a href="#" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 9h18l-1.5 9H4.5L3 9Z"/>
+                    <path d="M9 9V6a3 3 0 0 1 6 0v3"/>
+                </svg>
+                Catálogo Online
+            </a>
+
+            <a href="cadastros.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="m22 21-3-3m0 0a2 2 0 1 1-2.83-2.83A2 2 0 0 1 19 18Z"/>
+                </svg>
+                Cadastros
+            </a>
+
+            <a href="pedidos.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 9h18l-1.5 9H4.5L3 9Z"/>
+                    <path d="M9 9V6a3 3 0 0 1 6 0v3"/>
+                </svg>
+                Pedidos
+            </a>
+
+            <a href="mesas.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 9h18l-1.5 9H4.5L3 9Z"/>
+                    <path d="M9 9V6a3 3 0 0 1 6 0v3"/>
+                </svg>
+                Mesas
+            </a>
+
+            <div class="nav-section-title">Consultas</div>
+            <a href="consultor-de-vendas.html" class="nav-item">
+                <span style="margin-right: 12px;">🍽️</span>
+                Consultar vendas
+            </a>
+
+            <a href="#" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 9h18l-1.5 9H4.5L3 9Z"/>
+                    <path d="M9 9V6a3 3 0 0 1 6 0v3"/>
+                </svg>
+                Consultar estoque
+            </a>
+
+            <div class="nav-section-title">Gestão</div>
+            <a href="controle-de-caixa.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="3" y="3" width="7" height="7"/>
+                    <rect x="14" y="3" width="7" height="7"/>
+                    <rect x="14" y="14" width="7" height="7"/>
+                    <rect x="3" y="14" width="7" height="7"/>
+                </svg>
+                Controle de caixa
+            </a>
+
+            <a href="fiado.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+                Fiado
+            </a>
+
+            <a href="estabelecimento.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 9h18l-1.5 9H4.5L3 9Z"/>
+                    <path d="M9 9V6a3 3 0 0 1 6 0v3"/>
+                </svg>
+                Informações da loja
+            </a>
+
+            <a href="#" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="3" y="3" width="7" height="7"/>
+                    <rect x="14" y="3" width="7" height="7"/>
+                    <rect x="14" y="14" width="7" height="7"/>
+                    <rect x="3" y="14" width="7" height="7"/>
+                </svg>
+                Financeiro
+            </a>
+
+            <a href="relatorios.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14,2 14,8 20,8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10,9 9,9 8,9"/>
+                </svg>
+                Relatórios
+            </a>
+
+            <div class="nav-section-title">Preferências</div>
+            <a href="#" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+                Configurações
+            </a>
+
+            <a href="#" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+                Ajuda
+            </a>
+
+        </div>
+
+        <div class="user-info">
+            <div class="last-login">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 4px;">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                <path d="M3 3v5h5"/>
+                <path d="M12 7v5l4 2"/>
+            </svg>
+            Último login:<br>
+            <span id="lastLoginDate">--/--/----</span><br>
+            (<span id="lastLoginTime">--:--:--</span>)
+        </div>
+        </div>
+    </nav>
+
+    <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+    <main class="main-content" id="mainContent">
+        <div class="dashboard-stats">
+            <div class="stat-card sales">
+                <div class="stat-title">Vendas (Valor Total)</div>
+                <div class="stat-value" id="totalMesasValor">R$ 0,00</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Vendas (Quantidade)</div>
+                <div class="stat-value" id="numeroVendas">0</div>
+            </div>
+            <div class="stat-card revenue">
+                <div class="stat-title">Mesas: <span id="numeroMesas">0</span></div>
+                <div class="stat-value">R$ 593,00</div> {/* Este valor permanece estático ou para outra lógica */}
+                <div class="stat-subtitle">05/03/2025</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 9h18l-1.5 9H4.5L3 9Z"/>
+                        <path d="M9 9V6a3 3 0 0 1 6 0v3"/>
+                    </svg>
+                    Produtos mais vendidos
+                </h2>
+            </div>
+            <ul id="produtosMaisVendidos" class="product-list">
+                <li>Carregando...</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                        <line x1="1" y1="10" x2="23" y2="10"/>
+                    </svg>
+                    Métodos de Pagamento mais usados
+                </h2>
+            </div>
+            <ul id="metodosPagamentoMaisUsados" class="payment-list">
+                <li>Carregando...</li>
+            </ul>
+        </div>
+    </main>
+        
+    <script src="dashboard.js"></script>
+
+</body>
+</html>

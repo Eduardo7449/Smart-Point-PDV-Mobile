@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Smart Point - PDV</title>
+    <link rel="stylesheet" href="pdv.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="pdv-container">
+        <header class="header">
+            <div class="header-left">
+                <a href="dashboard.html" class="back-arrow">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                    </svg>
+                </a>
+                <h1 class="header-title">PDV</h1>
+            </div>
+            </header>
+        <main id="product-view" class="pdv-main">
+            <div class="search-container">
+                <input type="text" id="product-search-input" placeholder="Pesquisar item">
+                <img src="https://img.icons8.com/ios-glyphs/30/888888/search--v1.png" alt="Ícone de busca" class="search-icon"/>
+            </div>
+            <div id="scan-button" class="scan-bar">
+                <img src="https://img.icons8.com/material-outlined/24/000000/barcode-scanner.png" alt="Ícone de scanner"/>
+                <span>Escanear código de barras</span>
+            </div>
+            <div id="product-grid" class="product-grid">
+                </div>
+        </main>
+
+        <div id="cart-view" class="pdv-main hidden">
+            <h2>Revisar Pedido</h2>
+            <ul id="cart-items-list" class="cart-items-list">
+                </ul>
+            <div class="cart-summary">
+                <div class="summary-line">
+                    <span>Subtotal</span>
+                    <span id="summary-subtotal">R$ 0,00</span>
+                </div>
+                 <div class="summary-line">
+                    <span>Desconto</span>
+                    <span id="summary-discount">R$ 0,00</span>
+                </div>
+                <div class="summary-line total">
+                    <span>Total</span>
+                    <span id="summary-total">R$ 0,00</span>
+                </div>
+                 <div class="payment-method-selector">
+                    <label>Forma de Pagamento:</label>
+                    <div id="payment-method-buttons" class="payment-buttons-container">
+                        <button class="payment-btn active" data-value="Dinheiro">💵 Dinheiro</button>
+                        <button class="payment-btn" data-value="Cartão de Crédito">💳 Crédito</button>
+                        <button class="payment-btn" data-value="Cartão de Débito">💳 Débito</button>
+                        <button class="payment-btn" data-value="Pix">📱 Pix</button>
+                        <button class="payment-btn" data-value="Fiado">📝 Fiado</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="pdv-footer">
+            <div class="footer-selectors">
+                <button id="vendor-selector-btn" class="selector-btn">
+                    <img src="https://img.icons8.com/ios-glyphs/30/4a4a4a/user-male-circle.png" alt="Vendedor"/>
+                    <span id="vendor-name">Vendedor</span>
+                </button>
+                <button id="customer-selector-btn" class="selector-btn">
+                    <img src="https://img.icons8.com/ios-glyphs/30/4a4a4a/user-female-circle.png" alt="Cliente"/>
+                    <span id="customer-name">Cliente</span>
+                </button>
+            </div>
+            <button id="checkout-button" class="checkout-button" disabled>
+                <span id="checkout-text">Cobrar</span>
+                <span id="checkout-total">R$ 0,00</span>
+            </button>
+        </footer>
+    </div>
+
+    <div id="customer-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" data-modal="customer-modal">&times;</span>
+            <h3>Selecionar Cliente</h3>
+            <input type="text" id="customer-search" placeholder="Buscar cliente...">
+            <ul id="customer-list" class="selection-list">
+                 </ul>
+        </div>
+    </div>
+    
+    <div id="vendor-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" data-modal="vendor-modal">&times;</span>
+            <h3>Selecionar Vendedor</h3>
+            <input type="text" id="vendor-search" placeholder="Buscar vendedor...">
+            <ul id="vendor-list" class="selection-list">
+                 </ul>
+        </div>
+    </div>
+
+    <div id="signature-modal" class="modal">
+        <div class="modal-content">
+            <h3>Assinatura Digital do Cliente</h3>
+            <p>Por favor, assine no espaço abaixo:</p>
+            <canvas id="signature-canvas"></canvas>
+            <div class="modal-actions">
+                <button id="clear-signature-btn">Limpar</button>
+                <button id="save-signature-btn">Salvar Assinatura</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="scanner-modal" class="modal">
+    <div class="modal-content scanner-content">
+        <p>Aponte a câmera para o código de barras</p>
+        <div class="video-container">
+            <video id="video-scanner"></video>
+            <div class="laser"></div>
+        </div>
+        <button id="cancel-scan-btn" class="cancel-scan-btn">Cancelar</button>
+    </div>
+</div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js"></script>
+
+    <script
+    src="https://cdn.jsdelivr.net/npm/@zxing/library@0.19.1/umd/index.min.js"
+    integrity="sha256-xYN+SFijd1FzurCe425gUlRceIDJ10UuL0ZHcMbmQs4="
+    crossorigin="anonymous"
+    ></script>
+
+    <script src="pdv.js"></script>
+
+</body>
+</html>

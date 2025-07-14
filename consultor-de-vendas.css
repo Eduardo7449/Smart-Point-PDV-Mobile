@@ -1,0 +1,190 @@
+:root {
+    --primary-color: #007bff;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --background-color: #f4f5f7;
+    --card-background: #ffffff;
+    --text-color: #212529;
+    --text-secondary-color: #6c757d;
+    --border-color: #dee2e6;
+    --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    touch-action: pan-y;
+}
+
+.container {
+    max-width: 1400px;
+    /* Adicionado margin-top para dar espaço para o header fixo */
+    margin: 70px auto 2rem auto;
+    padding: 1rem;
+}
+
+.header {
+    background: #1e3a8a;
+    color: white;
+    padding: 0px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 70px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.back-arrow {
+    color: white;
+    margin-right: 1rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.back-arrow svg {
+    width: 28px;
+    height: 28px;
+    stroke: white;
+    stroke-width: 2.5;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.consultant-container {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 2rem;
+    height: calc(100vh - 150px);
+}
+
+.panel {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.sales-list-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+#sales-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* ESTILO DO CARTÃO DE VENDA */
+.sale-card {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    display: grid;
+    grid-template-areas:
+        "header date"
+        "details price"
+        "details price";
+    grid-template-columns: 1fr auto;
+    gap: 0.25rem 1rem;
+    margin-top: 1rem;
+}
+
+.sale-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.sale-card.selected {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.card-header { grid-area: header; font-size: 1.1rem; font-weight: 600; }
+.card-date { grid-area: date; font-size: 0.8rem; color: var(--text-secondary-color); text-align: right;}
+.card-details { grid-area: details; display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.85rem; color: var(--text-secondary-color); margin-top: 0.5rem;}
+.card-details span { display: flex; align-items: center; gap: 0.5rem; }
+.card-details i { font-size: 1.1rem; }
+.card-price { grid-area: price; font-size: 1.25rem; font-weight: 700; color: var(--success-color); align-self: center; justify-self: end; }
+
+.status-cancelled .card-price {
+    color: var(--danger-color);
+}
+.status-cancelled .card-header::after {
+    content: '(Cancelada)';
+    color: var(--danger-color);
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+    font-weight: 500;
+}
+
+
+/* RODAPÉ COM TOTAL */
+.total-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 1.1rem;
+    background-color: #f8f9fa;
+}
+
+/* PAINEL DE DETALHES */
+.sale-details-panel { padding: 1.5rem; }
+.sale-details-panel .placeholder { display: flex; justify-content: center; align-items: center; height: 100%; color: var(--text-secondary-color); text-align: center; border: 2px dashed var(--border-color); border-radius: 8px; }
+.panel-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+h2 { font-size: 1.4rem; margin: 0; }
+.back-button-mobile { display: none; background: none; border: none; font-size: 1rem; font-weight: 500; color: var(--primary-color); cursor: pointer; }
+.sale-info { line-height: 1.8; background-color: #f8f9fa; padding: 1rem; border-radius: 6px; }
+.sale-actions { margin: 1.5rem 0; display: flex; gap: 1rem; }
+.btn { padding: 0.6rem 1rem; border: 1px solid var(--primary-color); background-color: var(--primary-color); color: white; border-radius: 6px; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: opacity 0.2s; }
+.btn:hover { opacity: 0.85; }
+.btn:disabled { background-color: #ccc; border-color: #ccc; cursor: not-allowed; }
+.btn.btn-danger { background-color: var(--danger-color); border-color: var(--danger-color); }
+h3 { font-size: 1.2rem; margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem; margin-bottom: 1rem; }
+.table-container { flex-grow: 1; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 6px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 0.8rem; text-align: left; border-bottom: 1px solid var(--border-color); }
+thead { background-color: #f8f9fa; position: sticky; top: 0; }
+th { font-weight: 600; }
+
+/* RESPONSIVIDADE PARA CELULAR */
+@media (max-width: 800px) {
+    .container { padding: 0; }
+    .main-header { padding: 1rem; border-radius: 0; }
+    .consultant-container { grid-template-columns: 1fr; height: auto; }
+    .panel { border-radius: 0; box-shadow: none; border-bottom: 1px solid var(--border-color); }
+    .sales-list-panel { padding-bottom: 0; }
+    .sales-list-container { padding: 0 1rem 1rem 1rem; }
+    .back-button-mobile { display: block; }
+    .consultant-container .sale-details-panel { display: none; }
+    .consultant-container.details-active .sales-list-panel { display: none; }
+    .consultant-container.details-active .sale-details-panel { display: flex; }
+}

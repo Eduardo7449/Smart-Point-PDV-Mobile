@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SmartPoint PDV - Categorias</title>
+    <link rel="stylesheet" href="dashboard.css"> 
+    <link rel="stylesheet" href="categorias.css">
+    <link rel="manifest" href="/manifest.json">
+    
+    <meta name="theme-color" content="#00B4D8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="SmartPoint PDV">
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <a href="cadastros.html" class="back-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </a>
+            <h1 class="header-title">Voltar</h1>
+        </div>
+        <button class="notification-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                <path d="m13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+            <span class="notification-badge">3</span>
+        </button>
+    </header>
+
+    <main class="main-content" id="mainContent">
+        <div class="page-header">
+            <h2>Gestão de Categorias</h2>
+            <button id="addCategoryBtn" class="btn btn-primary">Adicionar Categoria</button> 
+        </div>
+
+        <div id="categoryList" class="category-list-container">
+            <p>Carregando categorias...</p>
+        </div>
+    </main>
+
+    <div id="categoryModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeCategoryModal()">&times;</span>
+            <h3 id="modalTitle">Adicionar Categoria</h3>
+            <form id="categoryForm">
+                <input type="hidden" id="categoryId">
+                
+                <label for="categoryName">Nome da categoria</label>
+                <input type="text" id="categoryName" required>
+                
+                <label for="categoryDescription">Descrição (opcional)</label>
+                <textarea id="categoryDescription"></textarea>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-cancel" onclick="closeCategoryModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-confirm">Confirmar</button> 
+                </div>
+            </form>
+        </div>
+    </div>
+        
+    <script src="categorias.js"></script>
+</body>
+</html>

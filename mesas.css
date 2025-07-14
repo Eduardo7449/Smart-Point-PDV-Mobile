@@ -1,0 +1,273 @@
+/* Estilos Gerais */
+body {
+    font-family: 'Roboto', sans-serif; /* Use a mesma fonte do dashboard se houver */
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.btn-primary { background-color: #1E3A8A; }
+.btn-primary:hover { background-color: #3B82F6; }
+.btn-success { background-color: #10B981; }
+.btn-warning { background-color: #F59E0B; }
+.btn-danger { background-color: #EF4444; }
+.btn-secondary { background-color: #6B7280; }
+.btn:disabled {
+    background-color: #9CA3AF;
+    cursor: not-allowed;
+}
+
+
+/* Formulário de Adicionar Mesa */
+.add-table-form .form-group {
+    display: flex;
+    gap: 10px;
+}
+.add-table-form input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #E5E7EB;
+    border-radius: 5px;
+}
+.status-label {
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+/* Container de Mesas */
+.tables-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+.table-category h3 {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+.status-dot.busy { background-color: #F59E0B; }
+.status-dot.free { background-color: #10B981; }
+
+.tables-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+}
+
+.table-card {
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-left-width: 5px;
+    padding: 15px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+.table-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+.table-card.free { border-left-color: #10B981; }
+.table-card.busy { border-left-color: #F59E0B; }
+.table-card-info h4 { margin: 0 0 5px 0; }
+.table-card-info p { margin: 0; font-size: 0.9em; color: #6B7280; }
+
+/* Modais (Painel de Detalhes, Adicionar Produto, etc.) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal-content {
+    background: #F9FAFB;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+.modal-header {
+    padding: 15px 20px;
+    background-color: #1E3A8A;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.modal-header h2 { margin: 0; }
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+.modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+.modal-footer {
+    padding: 15px 20px;
+    background: #fff;
+    border-top: 1px solid #E5E7EB;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-end;
+}
+.order-list, .product-selection-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.order-list li, .product-selection-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Alinhamento vertical */
+    padding: 10px;
+    border-radius: 5px;
+}
+.order-list li:nth-child(odd) { background-color: #F3F4F6; }
+
+.item-details {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espaço entre o preço e o 'X' */
+}
+
+.remove-item-btn {
+    background: none;
+    border: none;
+    color: #EF4444; /* Cor de perigo */
+    font-family: 'Arial', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 5px;
+    transition: color 0.2s;
+}
+.remove-item-btn:hover {
+    color: #B91C1C; /* Vermelho mais escuro */
+}
+
+.product-selection-list li {
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+.product-selection-list li:hover { background-color: #E5E7EB; }
+.product-selection-list li.selected {
+    background-color: #3B82F6;
+    color: white;
+    border-color: #1E3A8A;
+}
+
+.total-section {
+    text-align: right;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 2px solid #E5E7EB;
+}
+
+.search-input, .quantity-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+/* ESTILOS PARA DIVISÃO DE CONTA */
+.split-bill-container {
+    display: flex;
+    gap: 20px;
+}
+.split-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.split-column .order-list {
+    min-height: 200px;
+    background-color: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 5px;
+    flex-grow: 1;
+}
+.split-column .order-list li {
+    cursor: pointer;
+}
+
+/* ESTILOS PARA MODAL DE PAGAMENTO */
+.payment-total-display {
+    text-align: center;
+    color: #1E3A8A;
+    margin-bottom: 20px;
+}
+.payment-methods {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.payment-methods .btn {
+    background-color: #6B7280;
+}
+.payment-methods .btn.active {
+    background-color: #10B981; /* Verde sucesso */
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.5);
+}
+
+
+.back-arrow {
+color: white;
+margin-right: 0.5rem;
+}
+
+.back-arrow svg { /* Já definido no dashboard.css, mas pode ser específico aqui se necessário */
+    width: 28px; 
+    height: 28px;
+    stroke: #ffffff; /* Cor da seta no header, se este for o contexto */
+    stroke-width: 2.5;
+}
+
+/* Media Query para telas maiores (Desktop) */
+@media (min-width: 768px) {
+    .tables-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}

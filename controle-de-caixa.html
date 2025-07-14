@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Caixa - Smart Point PDV</title>
+    <link rel="stylesheet" href="controle-de-caixa.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-left">
+            <a href="dashboard.html" class="back-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+            </a>
+            <h1 class="header-title">Controle de Caixa</h1>
+        </div>
+        <div class="cash-status" id="cashStatus">
+            <span class="status-indicator-light" id="statusIndicator"></span>
+            <span id="statusText">Verificando...</span>
+        </div>
+    </header>
+    <div class="container">
+        <main>
+            <div class="main-card">
+                <div class="actions-bar">
+                    <button id="openCashBtn" class="btn btn-primary">Abrir Caixa</button>
+                    <button id="closeCashBtn" class="btn btn-danger" disabled>Fechar Caixa</button>
+                    <button id="addEntryBtn" class="btn btn-success" disabled>Registrar Entrada</button>
+                    <button id="addExitBtn" class="btn btn-warning" disabled>Registrar Saída</button>
+                    <button id="viewHistoryBtn" class="btn btn-secondary">Ver Histórico</button>
+                </div>
+                <div class="balance-display">
+                    <h2>Saldo Atual do Caixa</h2>
+                    <p id="cashBalance">R$ 0,00</p>
+                </div>
+            </div>
+
+            <div class="details-grid">
+                <div class="card">
+                    <h3>Vendas por Método de Pagamento</h3>
+                    <div id="salesByMethodList">
+                        <p>Nenhum caixa aberto.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Histórico de Movimentações (Sessão Atual)</h3>
+                    <div id="movementsHistoryList">
+                         <p>Nenhum caixa aberto.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="inputModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 id="modalTitle">Título do Modal</h3>
+            <p id="modalPrompt">Prompt do modal:</p>
+            <input type="text" id="modalInputAmount" placeholder="Valor (R$)">
+            <input type="text" id="modalInputDesc" placeholder="Descrição (Opcional)">
+            <button id="modalConfirmBtn" class="btn2">Confirmar</button>
+        </div>
+    </div>
+
+    <div id="historyModal" class="modal">
+        <div class="modal-content large">
+            <span class="close-button">&times;</span>
+            <h3>Histórico de Caixas</h3>
+            <div id="cashHistoryTableContainer">
+                </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+    <script src="firebase-config.js"></script>
+    <script src="controle-de-caixa.js"></script>
+</body>
+</html>

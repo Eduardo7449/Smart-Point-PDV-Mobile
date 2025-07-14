@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Smart Point - Consultor de Vendas</title>
+    <link rel="stylesheet" href="consultor-de-vendas.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-left">
+            <a href="dashboard.html" class="back-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+            </a>
+            <h1 class="header-title">Consultor de Vendas</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <main id="consultant-container" class="consultant-container">
+            <div class="panel sales-list-panel">
+                <div class="sales-list-container">
+                    <div id="sales-list">
+                        </div>
+                </div>
+                <div class="total-footer">
+                    <span>Total:</span>
+                    <span id="total-value">R$ 0,00</span>
+                </div>
+            </div>
+
+            <div class="panel sale-details-panel">
+                <div class="panel-header">
+                    <button id="back-to-list-btn" class="back-button-mobile">&larr; Voltar</button>
+                    <h2>Detalhes da Venda</h2>
+                </div>
+
+                <div id="details-placeholder" class="placeholder">
+                    <p>Selecione uma venda na lista para ver os detalhes.</p>
+                </div>
+
+                <div id="details-content" class="hidden">
+                    <div id="sale-info" class="sale-info"></div>
+                    <div id="sale-actions" class="sale-actions">
+                        <button id="reprint-btn" class="btn">Reimprimir</button>
+                        <button id="cancel-btn" class="btn btn-danger">Cancelar Venda</button>
+                    </div>
+                    <h3>Itens da Venda</h3>
+                    <div class="table-container">
+                        <table id="products-table">
+                            <thead>
+                                <tr>
+                                    <th>Produto</th>
+                                    <th>Qtd.</th>
+                                    <th>Vl. Unit.</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+    <script src="consultor-de-vendas.js"></script>
+</body>
+</html>

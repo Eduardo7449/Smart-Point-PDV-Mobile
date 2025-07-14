@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Smart Point - Informações do Estabelecimento</title>
+    <link rel="stylesheet" href="estabelecimento.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-left">
+            <a href="dashboard.html" class="back-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+            </a>
+            <h1 class="header-title">Estabelecimento</h1>
+        </div>
+    </header>
+    <div class="container">
+        <form id="establishment-form">
+            <div class="form-grid">
+                <div class="form-column">
+                    <div class="form-group">
+                        <label for="tradeName">Nome Fantasia</label>
+                        <input type="text" id="tradeName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="corporateName">Razão Social</label>
+                        <input type="text" id="corporateName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cnpj">CNPJ</label>
+                        <input type="text" id="cnpj" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Endereço Completo</label>
+                        <input type="text" id="address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefone / WhatsApp</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                </div>
+
+                <div class="form-column">
+                    <div class="form-group">
+                        <label>Logo da Empresa (Recomendado: 1:1, ex: 200x200px)</label>
+                        <div class="image-upload-container">
+                            <img id="logo-preview" src="https://via.placeholder.com/150?text=Logo" alt="Preview do Logo">
+                            <input type="file" id="logo-input" accept="image/png, image/jpeg" class="hidden-file-input">
+                            <input type="text" id="logo-url" readonly placeholder="URL da imagem aparecerá aqui">
+                            <button type="button" class="btn-upload" data-for="logo-input">Selecionar Logo</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Banner da Empresa (Recomendado: 3:1, ex: 600x200px)</label>
+                        <div class="image-upload-container">
+                            <img id="banner-preview" src="https://via.placeholder.com/300x100?text=Banner" alt="Preview do Banner">
+                            <input type="file" id="banner-input" accept="image/png, image/jpeg" class="hidden-file-input">
+                            <input type="text" id="banner-url" readonly placeholder="URL da imagem aparecerá aqui">
+                            <button type="button" class="btn-upload" data-for="banner-input">Selecionar Banner</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <p id="status-message"></p>
+                <button type="submit" id="save-btn" class="btn-save">Salvar Informações</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+    <script src="estabelecimento.js"></script>
+
+</body>
+</html>

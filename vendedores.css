@@ -1,0 +1,211 @@
+/* Estilos Gerais */
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    padding: 25px;
+    margin-bottom: 20px;
+}
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e9ecef;
+}
+.card-header h2 { margin: 0; color: #4361ee; }
+
+.btn {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn-primary { background-color: #4361ee; color: white; }
+.btn-primary:hover { background-color: #3a56d4; }
+.btn-secondary { background-color: #6c757d; color: white; }
+.btn-secondary:hover { background-color: #5a6268; }
+.btn-danger { background-color: #ef476f; color: white; }
+.btn-danger:hover { background-color: #e63462; }
+
+/* Pesquisa e Tabela */
+.search-container { margin-bottom: 20px; }
+.search-container input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+.table-responsive { overflow-x: auto; }
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.data-table th, .data-table td {
+    padding: 15px;
+    text-align: left;
+    vertical-align: middle;
+}
+.data-table thead {
+    background-color: #4361ee;
+    color: white;
+}
+.data-table tbody tr { border-bottom: 1px solid #e9ecef; }
+.data-table tbody tr:nth-child(even) { background-color: #f8f9fa; }
+.data-table tbody tr:hover { background-color: #e0e7ff; }
+.data-table .actions-cell .btn { padding: 5px 10px; font-size: 0.8em; margin-right: 5px; }
+
+/* Formulários */
+.form-group { margin-bottom: 20px; }
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #495057;
+}
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.form-actions {
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex; justify-content: center; align-items: center; z-index: 1000;
+}
+.modal-content {
+    background: #fff; width: 90%; max-width: 500px;
+    border-radius: 8px; display: flex; flex-direction: column;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.modal-header {
+    padding: 15px 20px; color: white; background-color: #4361ee;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top-left-radius: 8px; border-top-right-radius: 8px;
+}
+.modal-header h2 { margin: 0; }
+.close-btn { background: none; border: none; color: white; font-size: 28px; cursor: pointer; }
+.modal-body { padding: 30px; }
+.modal-footer {
+    padding: 20px; background: #f8f9fa;
+    display: flex; justify-content: flex-end; gap: 10px;
+    border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;
+}
+.status-label {
+    margin-top: 15px;
+    font-size: 0.9em;
+    height: 20px;
+}
+
+.back-arrow {
+    color: white;
+    margin-right: 0.5rem;
+}
+
+.back-arrow svg {
+    width: 28px; /* Tamanho da seta */
+    height: 28px;
+    stroke: #ffffff; /* Cor da seta (original for light backgrounds) */
+    stroke-width: 2.5;
+}
+
+@media (max-width: 768px) {
+
+    /* 1. Ajustes Gerais */
+    .card {
+        padding: 15px; /* Diminui o espaçamento interno dos cards */
+    }
+
+    .card-header {
+        flex-direction: column; /* Coloca o título em cima do botão */
+        align-items: flex-start; /* Alinha ambos à esquerda */
+        gap: 15px; /* Espaço entre o título e o botão */
+    }
+
+    .card-header h2 {
+        font-size: 1.25rem; /* Diminui um pouco o tamanho do título */
+    }
+
+    /* 2. Transformando a Tabela em "Cards" */
+    .data-table thead {
+        /* Esconde o cabeçalho original da tabela, pois vamos usar labels */
+        display: none;
+    }
+
+    .data-table, .data-table tbody, .data-table tr, .data-table td {
+        /* Faz com que todos os elementos da tabela se comportem como blocos */
+        display: block;
+        width: 100%;
+    }
+
+    .data-table tr {
+        /* Cada linha vira um card individual */
+        margin-bottom: 20px;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        overflow: hidden; /* Garante que os cantos arredondados funcionem */
+    }
+
+    .data-table td {
+        /* As células ficam uma embaixo da outra */
+        text-align: right; /* Alinha o valor à direita */
+        padding-left: 50%; /* Deixa espaço à esquerda para o label */
+        position: relative;
+        border-bottom: 1px solid #f1f1f1; /* Linha separadora entre os dados */
+    }
+
+    .data-table td:last-child {
+        border-bottom: none; /* Remove a linha da última célula (Ações) */
+    }
+
+    .data-table td::before {
+        /* Adiciona os labels (Nome, Email, etc.) antes de cada dado */
+        content: attr(data-label); /* Pega o texto do atributo data-label */
+        position: absolute;
+        left: 15px;
+        width: calc(50% - 30px);
+        text-align: left;
+        font-weight: bold;
+        color: #4361ee;
+    }
+    
+    /* 3. Ajuste nos Botões de Ação da Tabela */
+    .data-table .actions-cell {
+        padding-left: 15px; /* Remove o espaçamento extra */
+        text-align: left; /* Alinha os botões à esquerda */
+    }
+
+    .data-table .actions-cell::before {
+        display: none; /* O campo "Ações" não precisa de label */
+    }
+
+    /* 4. Ajustes nos Formulários */
+    .form-actions {
+        flex-direction: column; /* Botões um embaixo do outro */
+        width: 100%;
+    }
+    .form-actions .btn {
+        width: 100%; /* Botões ocupam a largura total */
+    }
+    .modal-content {
+        width: 95%; /* Modal ocupa mais espaço na tela */
+        max-height: 90vh; /* Garante que o modal não seja maior que a tela */
+    }
+    .modal-body {
+        padding: 20px;
+    }
+}

@@ -1,0 +1,159 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f0f2f5; /* Um cinza claro similar ao da imagem */
+    color: #333;
+    display: flex; /* For centering .container */
+    justify-content: center; /* For centering .container */
+    align-items: flex-start; /* Aligns .container to the top */
+    min-height: 100vh;
+    /* padding-top: 20px; -- Removed to allow fixed header to be at the very top */
+}
+
+.container {
+    width: 100%;
+    max-width: 480px; /* Largura máxima para simular uma tela de celular */
+    background-color: #f0f2f5;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    margin-top: 70px; /* Added to offset content below the 70px fixed header */
+    min-height: calc(100vh - 70px); /* Adjusted to fill viewport below the fixed header */
+}
+
+.back-arrow {
+    color: white;
+    margin-right: 0.5rem;
+}
+
+.back-arrow svg {
+    width: 28px; /* Tamanho da seta */
+    height: 28px;
+    stroke: #333; /* Cor da seta (original for light backgrounds) */
+    stroke-width: 2.5;
+}
+
+/* --- Header Styles from dashboard.css --- */
+.header {
+    background: #1e3a8a;
+    color: white;
+    padding: 0px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 70px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.menu-btn {
+    background: none; 
+    border: none; 
+    color: white; 
+    font-size: 20px; 
+    cursor: pointer;
+    margin-right: 20px; 
+    padding: 8px; 
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.menu-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.header-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.notification-btn {
+    background: none; 
+    border: none;
+    color: white; 
+    position: relative; 
+    cursor: pointer; 
+    padding: 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.notification-btn:hover {
+    background: rgba(255, 255, 255, 0.1); /* */
+}
+
+.notification-badge {
+    position: absolute; /* */
+    top: 4px; /* */
+    right: 4px; /* */
+    background: #ef4444; /* */
+    color: white; /* */
+    border-radius: 50%; /* */
+    width: 20px; /* */
+    height: 20px; /* */
+    font-size: 12px; /* */
+    display: flex; /* */
+    align-items: center; /* */
+    justify-content: center; /* */
+    font-weight: 600; /* */
+}
+
+.header .back-arrow svg {
+    stroke: white;
+}
+
+.options-menu {
+    padding: 20px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff; /* Fundo branco para os itens */
+    padding: 18px 20px;
+    margin-bottom: 15px; /* Espaço entre os itens */
+    border-radius: 12px; /* Bordas arredondadas */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08); /* Sombra sutil */
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease-in-out;
+}
+
+.menu-item:hover {
+    transform: translateY(-2px); /* Efeito sutil ao passar o mouse */
+}
+
+.menu-item-icon {
+    width: 40px; /* Largura do ícone */
+    height: 40px; /* Altura do ícone */
+    margin-right: 20px; /* Espaço entre o ícone e o texto */
+    object-fit: contain; /* Garante que a imagem do ícone caiba sem distorcer */
+}
+
+.menu-item-text {
+    font-size: 1.1em; /* Tamanho do texto (Produtos, Clientes, etc.) */
+    font-weight: 500;
+    color: #1c1c1e;
+}
+
+/* Ajustes para telas menores, caso necessário */
+@media (max-width: 360px) {
+    .menu-item-text {
+        font-size: 1em;
+    }
+    .menu-item-icon {
+        width: 35px;
+        height: 35px;
+        margin-right: 15px;
+    }
+    .menu-item {
+        padding: 15px;
+    }
+}

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPoint - Login</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563EB">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="SmartPoint">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.22.0/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.22.0/firebase-auth-compat.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2563EB, #3B82F6, #06B6D4);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .welcome-text {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #374151;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #2563EB;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2563EB, #3B82F6);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #2563EB;
+            border: 2px solid #2563EB;
+        }
+
+        .btn-secondary:hover {
+            background: #2563EB;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e5e7eb;
+            z-index: 1;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .loading {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #dc2626;
+            display: none;
+        }
+
+        .success-message {
+            background: #f0fdf4;
+            color: #16a34a;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #16a34a;
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 10px;
+                padding: 30px 20px;
+            }
+            
+            .logo-text {
+                font-size: 24px;
+            }
+        }
+
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <div class="logo-text">
+        <img src="SmartPoint-Logo-2.png" alt="SmartPoint Logo" style="max-width: 100%; height: auto;">
+            </div>
+
+        </div>
+
+        <div class="welcome-text">
+            Bem-vindo ao seu sistema de PDV
+        </div>
+
+        <div id="errorMessage" class="error-message"></div>
+        <div id="successMessage" class="success-message"></div>
+
+        <!-- Login Form -->
+        <form id="loginForm">
+            <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    class="form-input" 
+                    placeholder="Digite seu email"
+                    required
+                >
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="password">Senha</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    class="form-input" 
+                    placeholder="Digite sua senha"
+                    required
+                >
+            </div>
+            
+            <button type="submit" class="btn btn-primary" id="loginBtn">
+                <span class="loading" id="loginLoading"></span>
+                <span id="loginText">Entrar</span>
+            </button>
+        </form>
+
+        <div class="divider">
+            <span>ou</span>
+        </div>
+
+        <button class="btn btn-secondary" id="registerBtn">
+            Criar nova conta
+        </button>
+    </div>
+
+    <script>
+        // Configuração do Firebase (substitua pelas suas credenciais)
+        const firebaseConfig = {
+        apiKey: "AIzaSyAg0DdzFPBnGyEe_aLhVIwU5Ksljd0jTkY",
+        authDomain: "smart-point-pdv-ed911.firebaseapp.com",
+        databaseURL: "https://smart-point-pdv-ed911-default-rtdb.firebaseio.com",
+        projectId: "smart-point-pdv-ed911",
+        storageBucket: "smart-point-pdv-ed911.firebasestorage.app",
+        messagingSenderId: "308482043681",
+        appId: "1:308482043681:web:0505c90795b9151e7b9860"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Elementos do DOM
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginLoading = document.getElementById('loginLoading');
+        const loginText = document.getElementById('loginText');
+        const registerBtn = document.getElementById('registerBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+
+        // Função para mostrar mensagens
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            successMessage.style.display = 'none';
+        }
+
+        function showSuccess(message) {
+            successMessage.textContent = message;
+            successMessage.style.display = 'block';
+            errorMessage.style.display = 'none';
+        }
+
+        function hideMessages() {
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+        }
+
+        // Função para toggle loading
+        function setLoading(isLoading) {
+            if (isLoading) {
+                loginLoading.style.display = 'inline-block';
+                loginText.textContent = 'Entrando...';
+                loginBtn.disabled = true;
+            } else {
+                loginLoading.style.display = 'none';
+                loginText.textContent = 'Entrar';
+                loginBtn.disabled = false;
+            }
+        }
+
+        // Login com email e senha
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideMessages();
+            setLoading(true);
+
+            const email = emailInput.value;
+            const password = passwordInput.value;
+
+            try {
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                showSuccess('Login realizado com sucesso!');
+                
+                // Redirecionar para o PDV após 1 segundo
+                setTimeout(() => {
+                    window.location.href = '/dashboard.html';
+                }, 100);
+                
+            } catch (error) {
+                console.error('Erro no login:', error);
+                
+                let errorMsg = 'Erro ao fazer login. Tente novamente.';
+                
+                switch (error.code) {
+                    case 'auth/user-not-found':
+                        errorMsg = 'Usuário não encontrado.';
+                        break;
+                    case 'auth/wrong-password':
+                        errorMsg = 'Senha incorreta.';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMsg = 'Email inválido.';
+                        break;
+                    case 'auth/user-disabled':
+                        errorMsg = 'Usuário desabilitado.';
+                        break;
+                    case 'auth/too-many-requests':
+                        errorMsg = 'Muitas tentativas. Tente novamente mais tarde.';
+                        break;
+                }
+                
+                showError(errorMsg);
+            } finally {
+                setLoading(false);
+            }
+        });
+
+        // Botão de criar conta
+        registerBtn.addEventListener('click', async () => {
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            
+            if (!email || !password) {
+                showError('Preencha email e senha para criar uma conta.');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showError('A senha deve ter pelo menos 6 caracteres.');
+                return;
+            }
+            
+            hideMessages();
+            registerBtn.disabled = true;
+            registerBtn.textContent = 'Criando conta...';
+            
+            try {
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                showSuccess('Conta criada com sucesso! Fazendo login...');
+                
+                // Login automático após criar conta
+                setTimeout(() => {
+                    window.location.href = '/dashboard.html';
+                    alert('Conta criada! Redirecionando para o PDV...');
+                }, 100);
+                
+            } catch (error) {
+                console.error('Erro ao criar conta:', error);
+                
+                let errorMsg = 'Erro ao criar conta. Tente novamente.';
+                
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        errorMsg = 'Este email já está em uso.';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMsg = 'Email inválido.';
+                        break;
+                    case 'auth/weak-password':
+                        errorMsg = 'Senha muito fraca. Use pelo menos 6 caracteres.';
+                        break;
+                }
+                
+                showError(errorMsg);
+            } finally {
+                registerBtn.disabled = false;
+                registerBtn.textContent = 'Criar nova conta';
+            }
+        });
+
+        // Verificar se usuário já está logado
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                console.log('Usuário logado:', user.email);
+                // Redirecionar para PDV se já estiver logado
+                window.location.href = '/dashboard.html';
+            }
+        });
+
+        // PWA: Registrar Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', async () => {
+                try {
+                    // Para implementar, você precisará criar um arquivo sw.js
+                    const registration = await navigator.serviceWorker.register('/sw.js');
+                    console.log('PWA: Service Worker ready for implementation');
+                } catch (error) {
+                    console.log('PWA: Service Worker registration failed');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

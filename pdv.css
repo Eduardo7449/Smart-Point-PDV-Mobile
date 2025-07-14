@@ -1,0 +1,398 @@
+:root {
+    --primary-color: #ff8c00; /* Laranja vibrante */
+    --background-color: #f4f5f7;
+    --card-background: #ffffff;
+    --text-color: #333333;
+    --text-secondary-color: #888888;
+    --border-color: #e0e0e0;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    touch-action: pan-y;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.pdv-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 500px; /* Simula um dispositivo móvel */
+    margin: 0 auto;
+    background-color: var(--background-color);
+    position: relative;
+}
+
+.header {
+    background: #1e3a8a;
+    color: white;
+    padding: 0px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 70px;
+    /* Ajustes para centralizar como o resto do layout do PDV */
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.back-arrow {
+    color: white;
+    margin-right: 1rem; /* Aumentado para melhor espaçamento */
+    text-decoration: none; /* Garante que não haja sublinhado se for um link */
+    display: flex; /* Para alinhar o SVG corretamente */
+    align-items: center;
+}
+
+.back-arrow svg {
+    width: 28px;
+    height: 28px;
+    stroke: white; /* Cor da seta */
+    stroke-width: 2.5;
+}
+
+.pdv-main {
+    flex-grow: 1;
+    overflow-y: auto;
+    /* Adicionado padding-top para não ficar sob o header fixo */
+    padding: 70px 1rem 120px 1rem; /* Espaço para header e footer */
+}
+
+/* Estilos da busca e scan */
+.search-container {
+    position: relative;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 1rem 3rem 1rem 1rem;
+    border-radius: 2rem;
+    border: 1px solid var(--border-color);
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.search-container .search-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.6;
+}
+
+.scan-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    margin-bottom: 1rem;
+}
+
+.scan-bar span {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+/* Grid de produtos */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+    gap: 1rem;
+}
+
+.product-card {
+    background-color: var(--card-background);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.product-card img {
+    max-width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+}
+
+.product-card .product-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.product-card .product-price {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* Rodapé */
+.pdv-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: var(--card-background);
+    padding: 1rem;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.footer-selectors {
+    display: flex;
+    gap: 1rem;
+}
+
+.selector-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+
+.selector-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+.selector-btn span {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.checkout-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 120px;
+}
+
+.checkout-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+#checkout-total {
+    font-size: 0.8rem;
+    font-weight: 400;
+}
+
+/* Tela do Carrinho */
+.cart-items-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.cart-item img {
+    width: 50px;
+    height: 50px;
+    margin-right: 1rem;
+}
+.cart-item-info { flex-grow: 1; }
+.cart-item-info .name { font-weight: 600; }
+.cart-item-controls { display: flex; align-items: center; gap: 0.5rem; }
+.cart-item-controls button { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--border-color); background-color: white; font-size: 1.2rem; cursor: pointer; }
+.cart-summary { margin-top: 1.5rem; }
+.summary-line { display: flex; justify-content: space-between; padding: 0.5rem 0; font-size: 1rem; }
+.summary-line.total { font-size: 1.2rem; font-weight: 700; margin-top: 0.5rem; }
+.payment-method-selector { margin-top: 1.5rem; }
+.payment-method-selector select { width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border-color); font-size: 1rem; }
+
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 10px;
+    position: relative;
+}
+.close-btn {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.selection-list { list-style: none; padding: 0; max-height: 200px; overflow-y: auto; }
+.selection-list li { padding: 10px; border-bottom: 1px solid #eee; cursor: pointer; }
+.selection-list li:hover { background-color: #f0f0f0; }
+
+#signature-canvas {
+    border: 1px solid black;
+    width: 100%;
+    height: 200px;
+    cursor: crosshair;
+}
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.scanner-content {
+    padding: 1rem;
+    background-color: #333; /* Fundo escuro para destacar o vídeo */
+    color: white;
+    text-align: center;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 1rem auto;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+#video-scanner {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.cancel-scan-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+/* Efeito de laser para guiar o usuário */
+.laser {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: red;
+    box-shadow: 0 0 5px red;
+    transform: translateY(-50%);
+    animation: scanning 1.5s infinite linear;
+}
+
+.payment-method-selector label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.payment-buttons-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Cria um grid de 2 colunas */
+    gap: 0.75rem; /* Espaçamento entre os botões */
+}
+
+.payment-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.8rem;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
+    border: 1px solid var(--border-color);
+    background-color: var(--card-background);
+    color: var(--text-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.payment-btn:hover {
+    border-color: var(--primary-color);
+}
+
+/* Estilo do botão ATIVO */
+.payment-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    font-weight: 600;
+}
+
+@keyframes scanning {
+    0% { top: 10%; }
+    50% { top: 90%; }
+    100% { top: 10%; }
+}

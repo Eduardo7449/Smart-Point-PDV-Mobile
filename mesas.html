@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SmartPoint PDV - Gerenciamento de Mesas</title>
+    <link rel="stylesheet" href="dashboard.css"> 
+    <link rel="stylesheet" href="mesas.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1E3A8A">
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <a href="dashboard.html" class="back-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </a>
+            <h1 class="header-title">Voltar</h1>
+        </div>
+        <h1 class="header-title">Gerenciamento de Mesas</h1>
+    </header>
+
+    <main class="main-content" id="mainContent">
+        <div class="add-table-form card">
+            <h2>Cadastrar Nova Mesa</h2>
+            <div class="form-group">
+                <input type="text" id="tableNameEntry" placeholder="Nome ou Número da Mesa">
+                <button id="submitTableBtn" class="btn btn-primary">Cadastrar</button>
+            </div>
+            <p id="statusLabel" class="status-label"></p>
+        </div>
+
+        <div class="tables-container">
+            <div id="busyTables" class="table-category">
+                <h3><span class="status-dot busy"></span>Em Atendimento</h3>
+                <div id="busyTablesList" class="tables-list"></div>
+            </div>
+            <div id="freeTables" class="table-category">
+                <h3><span class="status-dot free"></span>Mesas Livres</h3>
+                <div id="freeTablesList" class="tables-list"></div>
+            </div>
+        </div>
+    </main>
+
+    <div id="tableDetailsPanel" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="tableInfoLabel"></h2>
+                <button class="close-btn" onclick="closeDetailsPanel()">×</button>
+            </div>
+            <div class="modal-body">
+                <h4>Itens do Pedido</h4>
+                <ul id="orderTree" class="order-list"></ul>
+                <div class="total-section">
+                    <p id="totalLabel">Total: R$ 0,00</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="addProductBtn" class="btn btn-primary">➕ Adicionar</button>
+                <button id="splitBillBtn" class="btn btn-warning">➗ Dividir Conta</button>
+                <button id="deleteTableBtn" class="btn btn-danger">🗑️ Excluir Mesa</button>
+                <button id="finalizeSaleBtn" class="btn btn-success">✓ Finalizar Venda</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="addProductModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Adicionar Produto</h2>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="productSearchEntry" placeholder="Buscar produto por nome..." class="search-input">
+                <ul id="productTree" class="product-selection-list"></ul>
+                <label for="quantityEntry">Quantidade:</label>
+                <input type="number" id="quantityEntry" value="1" min="1" class="quantity-input">
+            </div>
+            <div class="modal-footer">
+                <button onclick="hideProductModal()" class="btn btn-secondary">Cancelar</button>
+                <button onclick="confirmProduct()" class="btn btn-primary">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="splitBillModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h2 id="splitBillTitle">Dividir Conta</h2>
+                <button id="closeSplitBillBtn" class="close-btn">×</button>
+            </div>
+            <div class="modal-body split-bill-container">
+                <div class="split-column">
+                    <h4>Itens na Mesa</h4>
+                    <ul id="unpaidItemsList" class="order-list"></ul>
+                </div>
+                <div class="split-column">
+                    <h4>Itens para Pagar Agora</h4>
+                    <ul id="payingItemsList" class="order-list"></ul>
+                    <div class="total-section">
+                        <p id="splitTotalLabel">Subtotal a Pagar: R$ 0,00</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelSplitBillBtn" class="btn btn-secondary">Cancelar</button>
+                <button id="paySplitBtn" class="btn btn-success">Pagar Itens Selecionados</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="paymentModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2>Finalizar Pagamento</h2>
+                <button id="closePaymentModalBtn" class="close-btn">×</button>
+            </div>
+            <div class="modal-body">
+                <h3 id="paymentTotal" class="payment-total-display">Total: R$ 0,00</h3>
+                <h4>Forma de Pagamento:</h4>
+                <div id="paymentMethodSelector" class="payment-methods">
+                    <button class="btn" data-method="Dinheiro">Dinheiro</button>
+                    <button class="btn" data-method="Cartão de Crédito">Cartão de Crédito</button>
+                    <button class="btn" data-method="Cartão de Débito">Cartão de Débito</button>
+                    <button class="btn" data-method="Pix">Pix</button>
+                </div>
+                <div id="cashPaymentFields" style="display: none; margin-top: 20px;">
+                    <label for="amountPaidInput">Valor Recebido (R$):</label>
+                    <input type="number" id="amountPaidInput" class="quantity-input" placeholder="Ex: 50.00">
+                    <p id="changeDisplay" class="total-section">Troco: R$ 0,00</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelPaymentBtn" class="btn btn-secondary">Cancelar</button>
+                <button id="confirmPaymentBtn" class="btn btn-success" disabled>Confirmar Pagamento</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="mesas.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SmartPoint PDV - Produtos</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="produtos.css">
+    <link rel="manifest" href="/manifest.json">
+    
+    <meta name="theme-color" content="#00B4D8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="SmartPoint PDV">
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <a href="cadastros.html" class="back-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </a>
+            <h1 class="header-title">Voltar</h1>
+        </div>
+        <button class="notification-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                <path d="m13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+            <span class="notification-badge">3</span>
+        </button>
+    </header>
+
+    <main class="main-content" id="mainContent">
+        <div class="page-header">
+            <h2>Gestão de Produtos</h2>
+            <button id="addProductBtn" class="btn btn-primary">Adicionar Produto</button> 
+        </div>
+
+        <div id="productList" class="product-list-container">
+            <p>Carregando produtos...</p>
+        </div>
+    </main>
+
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeProductModal()">&times;</span>
+            <h3 id="modalTitle">Adicionar Produto</h3>
+            <form id="productForm">
+                <input type="hidden" id="productId">
+                
+                <label for="productName">Nome do produto</label>
+                <input type="text" id="productName" required>
+                
+                <label for="productDescription">Descrição</label>
+                <textarea id="productDescription"></textarea>
+
+                <label for="productCategorySelect">Categoria</label>
+                <select id="productCategorySelect" name="productCategorySelect" required>
+                    <option value="">Selecione uma categoria</option>
+                </select>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productPrice">Valor de venda (R$)</label>
+                        <input type="number" id="productPrice" step="0.01" required>
+                    </div>
+                </div>
+                
+                <label for="productImage" class="image-upload-label-main">Imagem do produto</label>
+                <div class="image-upload-area" id="imageUploadArea" onclick="document.getElementById('productImage').click();">
+                    <input type="file" id="productImage" accept="image/*" style="display: none;">
+                    <img id="imagePreview" src="#" alt="Pré-visualização da imagem" style="display: none;">
+                    <div id="imagePlaceholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                        <span>Adicionar imagem</span>
+                    </div>
+                </div>
+                
+                <label for="productStock">Estoque</label>
+                <input type="number" id="productStock" step="1">
+
+                <label for="productEan">Código de barras EAN</label>
+                <input type="text" id="productEan">
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-cancel" onclick="closeProductModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-confirm">Confirmar</button> 
+                </div>
+            </form>
+        </div>
+    </div>
+        
+    <script src="produtos.js"></script>
+</body>
+</html>

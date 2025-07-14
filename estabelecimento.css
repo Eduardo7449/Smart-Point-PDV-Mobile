@@ -1,0 +1,182 @@
+:root {
+    --primary-color: #007bff;
+    --background-color: #f4f5f7;
+    --card-background: #ffffff;
+    --text-color: #333;
+    --border-color: #dee2e6;
+    --success-color: #28a745;
+    --error-color: #dc3545;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    touch-action: pan-y;
+}
+
+.container {
+    max-width: 1000px;
+    margin: calc(70px + 2rem) auto 2rem auto; /* Adicionado 70px de margem no topo */
+    padding: 1.5rem;
+    background-color: var(--card-background);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.header {
+    background: #1e3a8a;
+    color: white;
+    padding: 0px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 70px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.back-arrow {
+    color: white;
+    margin-right: 1rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.back-arrow svg {
+    width: 28px;
+    height: 28px;
+    stroke: white;
+    stroke-width: 2.5;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="tel"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="tel"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.image-upload-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.image-upload-container img {
+    max-width: 100%;
+    height: auto;
+    background-color: #f8f9fa;
+    border: 2px dashed var(--border-color);
+    border-radius: 6px;
+    object-fit: contain;
+    padding: 0.5rem;
+}
+
+#logo-preview { height: 150px; }
+#banner-preview { height: 100px; }
+
+.hidden-file-input {
+    display: none;
+}
+
+.btn-upload, .btn-save {
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-upload {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-upload:hover {
+    background-color: #5a6268;
+}
+
+.form-actions {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#status-message {
+    font-weight: 500;
+}
+#status-message.success { color: var(--success-color); }
+#status-message.error { color: var(--error-color); }
+#status-message.loading { color: var(--primary-color); }
+
+.btn-save {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-save:hover {
+    background-color: #0056b3;
+}
+.btn-save:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+#logo-url, #banner-url {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "name": "Smart Point PDV",
+    "short_name": "Smart Point",
+    "start_url": "/dashboard.html",
+    "display": "standalone",
+    "background_color": "#2563EB",
+    "theme_color": "#2563EB",
+    "icons": [
+        {
+            "src": "SmartPoint-Icon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "SmartPoint-Icon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
